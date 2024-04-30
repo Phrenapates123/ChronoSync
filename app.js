@@ -1,9 +1,17 @@
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const slides = document.querySelectorAll('.slide');
     const navContainer = document.querySelector('.navigation-manual');
+
+    // Function to move to the next slide
+    function nextSlide() {
+        const currentSlide = document.querySelector('.slide.first');
+        const currentIndex = Array.from(slides).indexOf(currentSlide);
+        const nextIndex = (currentIndex + 1) % slides.length; // Loop back to the first slide if at the end
+        const nextSlide = slides[nextIndex];
+
+        // Trigger click event on the manual navigation button for the next slide
+        manualBtns[nextIndex].click();
+    }
 
     // Create navigation buttons based on the number of slides
     slides.forEach((slide, index) => {
@@ -32,4 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Add 'active' class to the clicked button
         btn.classList.add('active');
     });
+
+    // Automatically move to the next slide every 5 seconds
+    setInterval(nextSlide, 5000);
 });
